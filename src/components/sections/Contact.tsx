@@ -14,23 +14,13 @@ import {
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { fadeInLeft, fadeInRight } from "@/lib/animations";
-
-const serviceOptions = [
-  "E-Commerce Website",
-  "Mobile Application",
-  "Business Service / CRM",
-  "Web Development",
-  "Custom Software",
-  "UI/UX Design",
-  "Other",
-];
+import { siteConfig } from "@/lib/site";
 
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
-    service: "",
     message: "",
   });
   const [status, setStatus] = useState<
@@ -57,7 +47,7 @@ export default function Contact() {
       }
 
       setStatus("success");
-      setForm({ name: "", email: "", phone: "", service: "", message: "" });
+      setForm({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
       setStatus("error");
       setErrorMsg(
@@ -72,11 +62,10 @@ export default function Contact() {
         <SectionHeading
           badge="Contact Us"
           title="Let's Build Together"
-          subtitle="Have a project in mind? We'd love to hear about it. Send us a message and we'll respond within 24 hours."
+          subtitle="Have a project in mind? Send us a message and we'll get back to you within 24 hours."
         />
 
         <div className="grid gap-12 lg:grid-cols-5">
-          {/* Contact info */}
           <motion.div
             variants={fadeInLeft}
             initial="hidden"
@@ -88,17 +77,20 @@ export default function Contact() {
               {
                 icon: Mail,
                 title: "Email Us",
-                value: "hello@nexasoft.studio",
+                value: siteConfig.email,
+                isEmail: true,
               },
               {
                 icon: Phone,
                 title: "Call Us",
-                value: "+92 300 1234567",
+                value: siteConfig.phone,
+                isEmail: false,
               },
               {
                 icon: MapPin,
                 title: "Visit Us",
-                value: "Karachi, Pakistan",
+                value: siteConfig.location,
+                isEmail: false,
               },
             ].map((item, i) => (
               <motion.div
@@ -115,29 +107,21 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">{item.title}</h4>
-                  <p className="text-sm text-zinc-400">{item.value}</p>
+                  {item.isEmail ? (
+                    <a
+                      href={`mailto:${item.value}`}
+                      className="text-sm text-zinc-400 transition-colors hover:text-cyan-400"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className="text-sm text-zinc-400">{item.value}</p>
+                  )}
                 </div>
               </motion.div>
             ))}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 to-violet-600/10 p-6"
-            >
-              <h4 className="mb-2 font-semibold text-white">
-                Free Consultation
-              </h4>
-              <p className="text-sm text-zinc-400">
-                Book a free 30-minute consultation call to discuss your
-                project requirements and get expert advice.
-              </p>
-            </motion.div>
           </motion.div>
 
-          {/* Contact form */}
           <motion.form
             variants={fadeInRight}
             initial="hidden"
@@ -146,93 +130,58 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-5 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm lg:col-span-3"
           >
-            <div className="grid gap-5 sm:grid-cols-2">
-              {[
-                {
-                  label: "Full Name",
-                  key: "name" as const,
-                  type: "text",
-                  placeholder: "John Doe",
-                  required: true,
-                },
-                {
-                  label: "Email",
-                  key: "email" as const,
-                  type: "email",
-                  placeholder: "john@example.com",
-                  required: true,
-                },
-              ].map((field) => (
-                <div key={field.key}>
-                  <label className="mb-2 block text-sm font-medium text-zinc-300">
-                    {field.label}
-                  </label>
-                  <motion.input
-                    whileFocus={{ borderColor: "rgba(6,182,212,0.5)" }}
-                    type={field.type}
-                    required={field.required}
-                    value={form[field.key]}
-                    onChange={(e) =>
-                      setForm({ ...form, [field.key]: e.target.value })
-                    }
-                    placeholder={field.placeholder}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-zinc-300">
-                  Phone (Optional)
-                </label>
-                <input
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) =>
-                    setForm({ ...form, phone: e.target.value })
-                  }
-                  placeholder="+92 300 1234567"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
-                />
-              </div>
-              <div>
-                <label className="mb-2 block text-sm font-medium text-zinc-300">
-                  Service Needed
-                </label>
-                <select
-                  required
-                  value={form.service}
-                  onChange={(e) =>
-                    setForm({ ...form, service: e.target.value })
-                  }
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-cyan-500/50"
-                >
-                  <option value="" className="bg-[#0a0a0f]">
-                    Select a service
-                  </option>
-                  {serviceOptions.map((opt) => (
-                    <option key={opt} value={opt} className="bg-[#0a0a0f]">
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-zinc-300">
+                Name <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Your full name"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
+              />
             </div>
 
             <div>
               <label className="mb-2 block text-sm font-medium text-zinc-300">
-                Project Details
+                Email <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                placeholder="your@email.com"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-zinc-300">
+                Phone Number{" "}
+                <span className="text-zinc-500">(Optional)</span>
+              </label>
+              <input
+                type="tel"
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                placeholder="+92 300 1234567"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-zinc-300">
+                Message <span className="text-red-400">*</span>
               </label>
               <textarea
                 required
                 rows={5}
                 value={form.message}
-                onChange={(e) =>
-                  setForm({ ...form, message: e.target.value })
-                }
-                placeholder="Tell us about your project..."
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                placeholder="Tell us about your project or inquiry..."
                 className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 outline-none transition-colors focus:border-cyan-500/50"
               />
             </div>
@@ -246,7 +195,7 @@ export default function Contact() {
                   className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400"
                 >
                   <CheckCircle size={16} />
-                  Thank you! We&apos;ll get back to you within 24 hours.
+                  Message sent! We&apos;ll get back to you soon.
                 </motion.div>
               )}
               {status === "error" && (

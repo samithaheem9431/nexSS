@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import { Share2, Globe, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 
 const footerLinks = {
   Services: ["E-Commerce", "Mobile Apps", "Business Services", "Web Development"],
@@ -35,7 +36,7 @@ export default function Footer() {
               mobile apps, and business software that help companies grow.
             </p>
             <div className="flex gap-3">
-              {[Github, Linkedin, Twitter, Mail].map((Icon, i) => (
+              {[Share2, Globe, MessageCircle, Mail].map((Icon, i) => (
                 <motion.a
                   key={i}
                   href="#"
@@ -83,7 +84,12 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-zinc-400">
                 <Mail size={14} className="text-cyan-400" />
-                hello@nexasoft.studio
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="transition-colors hover:text-cyan-400"
+                >
+                  {siteConfig.email}
+                </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-zinc-400">
                 <Phone size={14} className="text-cyan-400" />
