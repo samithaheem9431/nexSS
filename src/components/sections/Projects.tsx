@@ -103,7 +103,7 @@ export default function Projects() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <AnimatedSection id="projects" className="relative py-24 md:py-32">
+    <AnimatedSection id="projects" className="relative py-10 md:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           badge="Portfolio"
@@ -115,7 +115,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-8 flex flex-wrap justify-center gap-2 md:mb-12 md:gap-3"
+          className="mb-4 flex flex-wrap justify-center gap-2 md:mb-12 md:gap-3"
         >
           {categories.map((cat) => (
             <motion.button

@@ -38,7 +38,7 @@ export default function MobileCardSlider({
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-4"
+        className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2"
       >
         {children.map((child, i) => (
           <div
@@ -51,7 +51,7 @@ export default function MobileCardSlider({
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
+        <div className="mt-2 flex items-center justify-center gap-1.5">
           {Array.from({ length: totalPages }).map((_, i) => (
             <button
               key={i}
@@ -66,7 +66,7 @@ export default function MobileCardSlider({
       )}
 
       {hint && (
-        <p className="mt-3 text-center text-xs text-zinc-500">{hint}</p>
+        <p className="mt-1 text-center text-[10px] text-zinc-600">{hint}</p>
       )}
     </div>
   );

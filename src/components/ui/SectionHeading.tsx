@@ -15,13 +15,13 @@ export default function SectionHeading({
   subtitle,
 }: SectionHeadingProps) {
   return (
-    <div className="mx-auto mb-16 max-w-2xl text-center">
+    <div className="mx-auto mb-6 max-w-2xl text-center md:mb-16">
       <motion.span
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-4 inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-sm font-medium text-cyan-400"
+        className="mb-2 inline-block rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-400 md:mb-4 md:px-4 md:py-1.5 md:text-sm"
       >
         {badge}
       </motion.span>
@@ -30,7 +30,7 @@ export default function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
+        className="mb-2 text-2xl font-bold tracking-tight text-white md:mb-4 md:text-4xl lg:text-5xl"
       >
         {title}
       </motion.h2>
@@ -39,7 +39,7 @@ export default function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-lg text-zinc-400"
+        className="text-sm text-zinc-400 md:text-lg"
       >
         {subtitle}
       </motion.p>

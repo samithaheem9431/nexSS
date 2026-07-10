@@ -88,7 +88,7 @@ function TestimonialCard({
 
 export default function Testimonials() {
   return (
-    <AnimatedSection id="testimonials" className="relative py-24 md:py-32">
+    <AnimatedSection id="testimonials" className="relative py-10 md:py-24 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/5 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">

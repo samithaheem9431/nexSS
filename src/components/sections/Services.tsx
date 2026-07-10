@@ -108,7 +108,7 @@ function ServiceCard({
 
 export default function Services() {
   return (
-    <AnimatedSection id="services" className="relative py-24 md:py-32">
+    <AnimatedSection id="services" className="relative py-10 md:py-24 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">

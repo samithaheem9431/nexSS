@@ -103,7 +103,7 @@ function StepCard({
 
 export default function Process() {
   return (
-    <AnimatedSection className="relative py-24 md:py-32">
+    <AnimatedSection className="relative py-10 md:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           badge="Our Process"
