@@ -76,21 +76,18 @@ export default function Contact() {
             {[
               {
                 icon: Mail,
-                title: "Email Us",
-                value: siteConfig.email,
-                isEmail: true,
+                title: "Get in Touch",
+                value: "Fill out the form and we'll respond within 24 hours.",
               },
               {
                 icon: Phone,
                 title: "Call Us",
                 value: siteConfig.phone,
-                isEmail: false,
               },
               {
                 icon: MapPin,
                 title: "Visit Us",
                 value: siteConfig.location,
-                isEmail: false,
               },
             ].map((item, i) => (
               <motion.div
@@ -107,16 +104,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">{item.title}</h4>
-                  {item.isEmail ? (
-                    <a
-                      href={`mailto:${item.value}`}
-                      className="text-sm text-zinc-400 transition-colors hover:text-cyan-400"
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="text-sm text-zinc-400">{item.value}</p>
-                  )}
+                  <p className="text-sm text-zinc-400">{item.value}</p>
                 </div>
               </motion.div>
             ))}

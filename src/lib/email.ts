@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import { siteConfig } from "@/lib/site";
 
 interface ContactEmailData {
   name: string;
@@ -11,7 +10,13 @@ interface ContactEmailData {
 export async function sendContactEmail(data: ContactEmailData) {
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const contactEmail = process.env.CONTACT_EMAIL || siteConfig.email;
+  const contactEmail = process.env.CONTACT_EMAIL;
+
+  if (!contactEmail) {
+    throw new Error(
+      "CONTACT_EMAIL is not configured in environment variables."
+    );
+  }
 
   if (!smtpUser || !smtpPass) {
     throw new Error(

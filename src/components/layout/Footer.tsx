@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Share2, Globe, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
+import { Share2, Globe, MessageCircle, MapPin, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 
 const footerLinks = {
@@ -36,10 +36,10 @@ export default function Footer() {
               mobile apps, and business software that help companies grow.
             </p>
             <div className="flex gap-3">
-              {[Share2, Globe, MessageCircle, Mail].map((Icon, i) => (
+              {[Share2, Globe, MessageCircle].map((Icon, i) => (
                 <motion.a
                   key={i}
-                  href="#"
+                  href="#contact"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:border-cyan-500/50 hover:text-cyan-400"
@@ -83,21 +83,21 @@ export default function Footer() {
             <h4 className="mb-4 font-semibold text-white">Contact Info</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-zinc-400">
-                <Mail size={14} className="text-cyan-400" />
+                <MessageCircle size={14} className="text-cyan-400" />
                 <a
-                  href={`mailto:${siteConfig.email}`}
+                  href="#contact"
                   className="transition-colors hover:text-cyan-400"
                 >
-                  {siteConfig.email}
+                  Send us a message
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-zinc-400">
                 <Phone size={14} className="text-cyan-400" />
-                +92 300 1234567
+                {siteConfig.phone}
               </li>
               <li className="flex items-start gap-2 text-sm text-zinc-400">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-cyan-400" />
-                Karachi, Pakistan
+                {siteConfig.location}
               </li>
             </ul>
           </motion.div>
