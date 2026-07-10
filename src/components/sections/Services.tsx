@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeading from "@/components/ui/SectionHeading";
+import MobileCardSlider from "@/components/ui/MobileCardSlider";
 import { services } from "@/lib/data/services";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 
@@ -107,26 +107,6 @@ function ServiceCard({
 }
 
 export default function Services() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activePage, setActivePage] = useState(0);
-  const totalPages = Math.ceil(services.length / 2);
-
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth = el.scrollWidth / services.length;
-    const page = Math.round(el.scrollLeft / (cardWidth * 2));
-    setActivePage(Math.min(page, totalPages - 1));
-  }, [totalPages]);
-
-  const scrollToPage = (page: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth = el.scrollWidth / services.length;
-    el.scrollTo({ left: page * cardWidth * 2, behavior: "smooth" });
-    setActivePage(page);
-  };
-
   return (
     <AnimatedSection id="services" className="relative py-24 md:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent" />
@@ -138,42 +118,14 @@ export default function Services() {
           subtitle="From e-commerce stores to enterprise software, we deliver end-to-end digital solutions tailored to your business needs."
         />
 
-        {/* Mobile: 2 cards visible, horizontal swipe */}
-        <div className="md:hidden">
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-4"
-          >
-            {services.map((service) => (
-              <div
-                key={service.id}
-                className="w-[calc(50%-6px)] shrink-0 snap-start"
-              >
-                <ServiceCard service={service} compact />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 flex items-center justify-center gap-2">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => scrollToPage(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activePage === i
-                    ? "w-6 bg-cyan-400"
-                    : "w-2 bg-white/20"
-                }`}
-              />
-            ))}
-          </div>
-
-          <p className="mt-3 text-center text-xs text-zinc-500">
-            Swipe to see more services →
-          </p>
-        </div>
+        <MobileCardSlider
+          itemCount={services.length}
+          hint="Swipe to see more services →"
+        >
+          {services.map((service) => (
+            <ServiceCard key={service.id} service={service} compact />
+          ))}
+        </MobileCardSlider>
 
         {/* Tablet & Desktop: grid */}
         <motion.div
